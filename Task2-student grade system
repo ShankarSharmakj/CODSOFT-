@@ -1,0 +1,31 @@
+import java.util.Scanner;
+
+public class GradeCalculator {
+    public static char calculateGrade(float average) {
+        if (average >= 90.0) return 'A';
+        else if (average >= 80.0) return 'B';
+        else if (average >= 70.0) return 'C';
+        else if (average >= 60.0) return 'D';
+        else return 'F';
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int numSubjects;
+        float marks, totalMarks = 0.0f, averagePercentage;
+        System.out.print("Enter the number of subjects: ");
+        numSubjects = scanner.nextInt();
+        float[] subjectMarks = new float[numSubjects];
+        for (int i = 0; i < numSubjects; i++) {
+            System.out.printf("Enter marks for subject %d: ", i + 1);
+            marks = scanner.nextFloat();
+            subjectMarks[i] = marks;
+            totalMarks += marks;
+        }
+        averagePercentage = totalMarks / numSubjects;
+        char grade = calculateGrade(averagePercentage);
+        System.out.printf("\nTotal Marks: %.2f\n", totalMarks);
+        System.out.printf("Average Percentage: %.2f\n", averagePercentage);
+        System.out.printf("Grade: %c\n", grade);
+    }
+}
