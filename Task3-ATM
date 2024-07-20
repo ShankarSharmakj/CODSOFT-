@@ -1,0 +1,81 @@
+import java.util.Scanner;
+class BankAccount {
+    private float balance;
+
+    public BankAccount(float balance) {
+        this.balance = balance;
+    }
+
+    public void deposit(float amount) {
+        if (amount > 0) {
+            this.balance += amount;
+            System.out.printf("Deposit successful! Current balance: $%.2f\n", this.balance);
+        } else {
+            System.out.println("Invalid deposit amount. Please try again.");
+        }
+    }
+
+    public boolean withdraw(float amount) {
+        if (amount > 0 && amount <= this.balance) {
+            this.balance -= amount;
+            System.out.printf("Withdrawal successful! Current balance: $%.2f\n", this.balance);
+            return true;
+        } else if (amount > this.balance) {
+            System.out.printf("Insufficient funds! Current balance: $%.2f\n", this.balance);
+            return false;
+        } else {
+            System.out.println("Invalid withdrawal amount. Please try again.");
+            return false;
+        }
+    }
+
+    public float checkBalance() {
+        return this.balance;
+    }
+}
+
+public class ATM {
+    public static void main(String[] args) {
+        BankAccount account = new BankAccount(1000.0f);
+        Scanner scanner = new Scanner(System.in);
+        int choice;
+        float amount;
+        boolean exit = false;
+
+        System.out.println("Welcome to the ATM!");
+
+        while (!exit) {
+            System.out.println("\nPlease select an option:");
+            System.out.println("1. Check Balance");
+            System.out.println("2. Deposit Money");
+            System.out.println("3. Withdraw Money");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice: ");
+            choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.printf("Current balance: $%.2f\n", account.checkBalance());
+                    break;
+                case 2:
+                    System.out.print("Enter the amount to deposit: ");
+                    amount = scanner.nextFloat();
+                    account.deposit(amount);
+                    break;
+                case 3:
+                    System.out.print("Enter the amount to withdraw: ");
+                    amount = scanner.nextFloat();
+                    account.withdraw(amount);
+                    break;
+                case 4:
+                    System.out.println("Thank you for using the ATM. Goodbye!");
+                    exit = true;
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+
+        scanner.close();
+    }
+}
